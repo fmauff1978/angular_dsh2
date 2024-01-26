@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "peaceful-impact-285323": {
+      "hosting": {
+        "angular_dsh2": [
+          "peaceful-impact-285323"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "peaceful-impact-285323"
+  }
+}

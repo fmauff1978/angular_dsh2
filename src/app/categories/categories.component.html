@@ -1,0 +1,77 @@
+<div class="container">
+
+  <div class="row">
+
+    
+
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card-body">
+
+        <table class="table row-border hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+
+              <th>Criado em</th>
+              <th>Ações</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor='let cat of categories$|async; let i = index'>
+              <td> {{i+1}}</td>
+              <td> {{cat.category}}</td>
+              <td> {{cat.criado_em.seconds * 1000 | date: 'dd/MM/yyyy HH:mm'}}</td>
+              <td> <i class="bi bi-pencil" (click)="onEdit(cat.id)"></i> <i class="bi bi-trash3"
+                  (click)="onDelete(cat.id)"></i> </td>
+
+
+
+
+            </tr>
+          </tbody>
+
+
+        </table>
+
+
+
+      </div>
+
+
+
+    </div>
+
+    <div class="col-md-12 bg-secondary-theme p-5">
+
+      <h3 class="text-center text-theme-primary">{{formStatus}} Nova Categoria</h3>
+      <p class="text-center mb-5">Adicione aqui</p>
+
+
+      <form class="form-inline text-center" #categoryForm='ngForm' (ngSubmit)="onSubmit(categoryForm)">
+
+        <div class="form-group col-md-10">
+
+          <input type="text" name="category" class="form-control shadow-effect" placeholder="Adicione"
+            #newcategory='ngModel' [(ngModel)]='formCategory' required
+            [ngClass]="{ 'is-invalid': newcategory.touched && newcategory.invalid}">
+          <div class="alert alert-danger" *ngIf="newcategory.touched && newcategory.invalid">É necessário preencher a
+            categoria</div>
+
+
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-block btn-info mb-2 btn-theme" [disabled]="categoryForm.invalid"> {{formStatus}}
+            Categorias</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</div>

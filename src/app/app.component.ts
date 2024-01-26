@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+
+
+import { Component, inject } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css']
 })
 export class AppComponent {
-  title = 'angular_dsh2';
+  firestore: Firestore = inject(Firestore);
+
+  constructor() {
+
+  }
 }

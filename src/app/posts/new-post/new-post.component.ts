@@ -52,13 +52,14 @@ this.postForm = this.fb.group({
   ngOnInit() {
 
     this.categories =this.fs.collection('categories', (ref) => ref.orderBy('criado_em', 'desc')).get().pipe(map((result)=> this.convertSnaps<Category>(result)));
-
     console.log(this.categories)
     }
 
+//form control para validadcao
     get fc(){
       return this.postForm.controls;
     }
+
 
   convertSnaps<T>(result){
     return <T[]> result.docs.map(snap=>{
@@ -111,9 +112,7 @@ this.postForm = this.fb.group({
   onTitleChanged($event){
 
     const title = $event.target.value;
-
     this.permalink = title.replace(/\s/g,'-');
-
     console.log(this.permalink)
 
 
@@ -122,16 +121,10 @@ this.postForm = this.fb.group({
   showPreview($event){
 
     const reader = new FileReader()
-
     reader.onload = (e)=>{
       this.imgSrc = e.target.result
     }
     reader.readAsDataURL($event.target.files[0]);
     this.selectedImg = $event.target.files[0];
-
   }
-
-
-
-
 }

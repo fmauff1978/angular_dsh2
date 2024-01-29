@@ -63,5 +63,17 @@ input [type = text], input [type =email]{
   height: 58px;
   border: none;
   font-size: 13px;
-  background-color: var (--primary-color);
+  background-color: var(--primary-color);
+}
+
+.nav-link{
+  color: var (--primary-color);
+
+}
+
+.shadow-effect{
+
+  border: none;
+  box-shadow: 0px 0px 33px -10px rgba(71, 114, 254,0.3);
+
 }

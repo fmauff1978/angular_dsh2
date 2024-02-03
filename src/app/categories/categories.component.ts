@@ -19,6 +19,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import { Observable, map } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class CategoriesComponent implements OnInit {
   formStatus: string = "Adicionar";
   categoryId: string;
 
-  constructor(private cs: CategoriesService, private fs: AngularFirestore){}
+  constructor(private cs: CategoriesService, private fs: AngularFirestore, private route: Router){}
 
 
 
@@ -86,6 +87,7 @@ export class CategoriesComponent implements OnInit {
           if (this.formStatus == "Adicionar"){
             this.cs.saveData(categoryData);
             formData.reset();
+            this.route.navigate(['/'])
 
           formData.reset();
           } else if (this.formStatus == "Editar"){

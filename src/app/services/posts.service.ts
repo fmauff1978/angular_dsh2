@@ -7,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { Storage, ref, uploadString, getDownloadURL } from '@angular/fire/storage';
+import {  Router } from '@angular/router';
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
@@ -19,7 +20,7 @@ import { getStorage } from "firebase/storage";
 
 export class PostService {
 
-  constructor(private st: AngularFireStorage, private fs: AngularFirestore) { }
+  constructor(private st: AngularFireStorage, private fs: AngularFirestore, private router: Router) { }
 
 
 uploadImage(selectedImg, postData){
@@ -44,6 +45,8 @@ uploadImage(selectedImg, postData){
 
 saveData(postData){
   this.fs.collection('posts').add(postData).then(docRef =>{
+this.router.navigate(['/posts'])
+
 })
 
 }

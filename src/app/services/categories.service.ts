@@ -13,6 +13,7 @@ import {
 import { Category } from '../models/category';
 import { Observable, from } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Route, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class CategoriesService implements OnInit{
 
 
 
-  constructor(private fs: AngularFirestore
+  constructor(private fs: AngularFirestore, private router: Router
     ) { }
 
   async saveData(data){
@@ -32,7 +33,10 @@ export class CategoriesService implements OnInit{
     const res = await this.fs.collection('categories').add(data);
 
     console.log('Documento criado com ID: ', res.id);
-    
+    this.router.navigate(['/'])
+
+    this.router.navigate(['/categories'])
+
 
 
   }
@@ -44,7 +48,7 @@ export class CategoriesService implements OnInit{
 
 
     this.fs.doc(`categories/${id}`).delete();
-    
+
     console.log(id)
 
 

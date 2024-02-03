@@ -40,19 +40,11 @@ uploadImage(selectedImg, postData){
 
     })
   })
-
-
-
-
-
 }
 
 saveData(postData){
   this.fs.collection('posts').add(postData).then(docRef =>{
-
-
 })
-
 
 }
 }

@@ -99,14 +99,10 @@ this.postForm = this.fb.group({
       }
 
       this.ps.uploadImage(this.selectedImg, postData)
-
       this.postForm.reset();
       this.imgSrc = "./assets/plax.jpg";
 
   }
-
-
-
 
 
   onTitleChanged($event){

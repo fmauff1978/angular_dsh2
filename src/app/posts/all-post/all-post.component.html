@@ -8,11 +8,48 @@
 
 
         <button class="btn btn-info bg-theme" routerLink="/posts/new"> Adicionar novo</button>
-
         <button class="btn btn-warning ml-2" routerLink='/'> Volta para o Dashboard</button>
-      </div>
 
+        </div>
       </div>
     </div>
   </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-effect">
+          <div class="card-body">
+
+                <table class="table row-border hover">
+                      <thead>
+                         <tr>
+                          <th> Nro </th>
+                          <th> Imagem </th>
+                          <th> Titulo </th>
+                          <th> Except </th>
+                          <th> Categoria </th>
+                          <th> Data </th>
+                          <th> Ações </th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                          <tr *ngFor="let x of post$|async; let i=index">
+                            <td>{{i+1}}</td>
+                            <td><img src="{{x.postImgPath}}" class="img img-fluid"></td>
+                            <td>{{x.title}}</td>
+                            <td>{{x.except}}</td>
+                            <td>{{x.category.category}}</td>
+                            <td>{{x.createdAt.seconds * 1000 | date: 'dd/MM/yyyy HH:mm'}}</td>
+                            <td></td>
+                          </tr>
+                      </tbody>
+                </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 </div>

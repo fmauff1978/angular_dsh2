@@ -39,11 +39,14 @@
                <div class="col-md-5">
                 <div class = "card shadow-effect">
                   <div class = "card-body">
+                    <div class="form-group">
+
                      <label for="">Selecione uma categoria</label>
                        <select class="form-control" formControlName="category" >
-                       <option value="" disabled>Selecione</option>
+                       <option value="">Selecione</option>
                         <option *ngFor="let cat of categories|async" value="{{cat.id}}-{{cat.category}}">{{cat.category}}</option>
                       </select>
+                  </div>
 
 
 

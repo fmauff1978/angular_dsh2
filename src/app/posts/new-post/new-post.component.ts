@@ -9,6 +9,7 @@ import { Category } from 'src/app/models/category';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/posts.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -28,26 +29,52 @@ export class NewPostComponent implements OnInit {
   selectedImg : any;
   categories: Observable <Category[]>;
   postForm: FormGroup;
-  percentageChanges$: Observable<number>;
-  iconUrl: string;
+  post: any;
+  formStatus: string ="Adicionar";
+  docId: string;
 
 
 
-constructor(private fs: AngularFirestore, private fb: FormBuilder, private ps: PostService ){
+constructor(private fs: AngularFirestore, private fb: FormBuilder, private ps: PostService, private ar: ActivatedRoute ){
 
+    this.ar.queryParams.subscribe(val=>{
+      this.docId = val.id;
+      console.log(val);  
+      
+      if(this.docId){ 
+        this.ps.loadOneData(val.id).subscribe(post=>{
+        this.post = post;
 
-this.postForm = this.fb.group({
+        this.postForm = this.fb.group({
+          title: [this.post.title, [Validators.required, Validators.minLength(10)]],
+          permalink: [this.post.permalink, [Validators.required]],
+          except: [this.post.except, [Validators.required, Validators.minLength(50)]],
+          category: [`${this.post.category.categoryId}-${this.post.category.category}`, [Validators.required]],
+          postImg: ['', [Validators.required]],
+          content: [this.post.content, [Validators.required]]      
+        })
+        this.imgSrc = this.post.postImgPath;
+        this.formStatus = "Editar"
+        console.log(post)
+       })
+      
+      }else{
 
-  title: [' ', [Validators.required, Validators.minLength(10)]],
-  permalink: [' ', [Validators.required]],
-  except: [' ', [Validators.required, Validators.minLength(50)]],
-  category: [' ', [Validators.required]],
-  postImg: [" ", [Validators.required]],
-  content: [' ', [Validators.required]]
+        this.postForm = this.fb.group({
+          title: ['', [Validators.required, Validators.minLength(10)]],
+          permalink: ['', [Validators.required]],
+          except: ['', [Validators.required, Validators.minLength(50)]],
+          category: ['', [Validators.required]],
+          postImg: ['', [Validators.required]],
+          content: ['', [Validators.required]]      
+        })
 
-})
-
+      }
+  })
   }
+
+  
+  
 
   ngOnInit() {
 
@@ -98,7 +125,7 @@ this.postForm = this.fb.group({
       createdAt: new Date()
       }
 
-      this.ps.uploadImage(this.selectedImg, postData)
+      this.ps.uploadImage(this.selectedImg, postData, this.formStatus, this.docId)
       this.postForm.reset();
       this.imgSrc = "./assets/plax.jpg";
 
@@ -107,8 +134,8 @@ this.postForm = this.fb.group({
 
   onTitleChanged($event){
 
-    const title = $event.target.value;
-    this.permalink = title.replace(/\s/g,'-');
+    const title1 = $event.target.value;
+    this.permalink = title1.replace(/\s/g,'-');
     console.log(this.permalink)
 
 

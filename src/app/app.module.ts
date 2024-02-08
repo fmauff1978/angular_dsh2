@@ -19,6 +19,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { LoginComponent } from './auth/login/login.component';
+import { AngularFireAuthModule} from '@angular/fire/compat/auth';
 
 
 
@@ -30,7 +32,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HeaderComponent,
     FooterComponent,
     AllPostComponent,
-    NewPostComponent
+    NewPostComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

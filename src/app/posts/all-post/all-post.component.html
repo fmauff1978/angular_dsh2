@@ -30,6 +30,7 @@
                           <th> Categoria </th>
                           <th> Data </th>
                           <th> Ações </th>
+
                         </tr>
                       </thead>
 
@@ -41,7 +42,16 @@
                             <td>{{x.except}}</td>
                             <td>{{x.category.category}}</td>
                             <td>{{x.createdAt.seconds * 1000 | date: 'dd/MM/yyyy HH:mm'}}</td>
-                            <td></td>
+                            <td>
+                              <button class= "btn btn-sm btn-warning" routerLink="/posts/new"  [queryParams]="{id: x.id}">Edit</button>
+
+                              <button class= "btn btn-sm btn-danger ml-2" (click)="onDelete(x.postImgPath, x.id)">Delete</button>
+
+                              <button *ngIf='!x.isFeatured'class= "btn btn-sm btn-success ml-2" (click)="onFeatured(x.id, true)">Mark</button>
+
+                              <button *ngIf ='x.isFeatured' class= "btn btn-sm btn-info ml-2" (click)="onFeatured(x.id, false)">Remove</button>
+
+                            </td>
                           </tr>
                       </tbody>
                 </table>

@@ -23,7 +23,7 @@ export class PostService {
   constructor(private st: AngularFireStorage, private fs: AngularFirestore, private router: Router) { }
 
 
-uploadImage(selectedImg, postData){
+uploadImage(selectedImg, postData, formStatus, id){
 
 
   const filePath =`postIMG/${Date.now()}`
@@ -37,7 +37,9 @@ uploadImage(selectedImg, postData){
       console.log(URL);
       postData.postImgPath = URL;
       console.log(postData);
-      this.saveData(postData)
+
+
+     this.saveData(postData)
 
     })
   })
@@ -48,6 +50,51 @@ saveData(postData){
 this.router.navigate(['/posts'])
 
 })
+
+}
+
+loadOneData(id){
+
+  return this.fs.doc(`posts/${id}`).valueChanges();
+
+}
+
+updateData(id, postData){
+
+  this.fs.doc(`posts/${id}`).update(postData).then(()=>{
+console.log("Dados atualizados com sucesso")
+this.router.navigate(['/posts']);
+
+  })
+
+
+}
+
+
+deleteImage(postImgPath, id){
+
+
+  this.st.storage.refFromURL(postImgPath).delete().then(()=>{
+
+    this.deleteData(id);
+
+    console.log("Doc deletado com sucesso")
+  })
+}
+
+deleteData (id){
+
+  this.fs.doc(`posts/${id}`).delete().then(()=>{
+    console.log("Dados apagados com sucesso!")
+  })
+}
+
+markFeatured(id, featuredData){
+
+  this.fs.doc(`posts/${id}`).update(featuredData).then(()=>{
+
+    console.log("atualizado featured!")
+  })
 
 }
 }

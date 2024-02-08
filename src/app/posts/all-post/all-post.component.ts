@@ -19,7 +19,7 @@ export class AllPostComponent implements OnInit {
   constructor(private ps: PostService, private fs: AngularFirestore){}
 
 
-   ngOnInit() {
+   ngOnInit():void  {
 
     this.post$ = this.fs.collection('posts', (ref)=>ref.orderBy('createdAt', 'desc')).get().pipe(map((result)=> this.convertSnaps<Post>(result)));
     console.log(this.post$)
@@ -27,7 +27,7 @@ export class AllPostComponent implements OnInit {
      // (await this.cs.loadData()).subscribe( val =>{
          // console.log(val);
 
-         
+
 
     }
 
@@ -43,6 +43,20 @@ export class AllPostComponent implements OnInit {
 
      }
       })
+     }
+     onDelete(postImgPath, id){
+
+      this.ps.deleteImage(postImgPath, id);
+     }
+
+     onFeatured (id, value){
+
+        const featuredData ={
+
+          isFeatured: value
+        }
+
+        this.ps.markFeatured(id, featuredData)
      }
 
 }

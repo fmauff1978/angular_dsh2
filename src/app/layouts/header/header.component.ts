@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+
+  userEmail: string;
+
+  constructor(){}
+  ngOnInit(): void {
+
+   this.userEmail = (JSON.parse(localStorage.getItem('user')).email)
+    
+  }
 
 }
